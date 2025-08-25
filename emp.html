@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Employee Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f6f7fb;
+      display: flex;
+      justify-content: center;
+      padding: 30px;
+    }
+    .container {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 24px rgba(2,6,23,.08);
+      width: 1200px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    form {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    input {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      grid-column: span 5;
+      padding: 10px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    button:hover {
+      background: #1d4ed8;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background: #2563eb;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background: #f9fafb;
+    }
+
+    .deleteBtn {
+      background: #dc2626;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .deleteBtn:hover {
+      background: #b91c1c;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Add Employee</h1>
+
+    <!-- Employee Form -->
+    <form id="employeeForm">
+      <input type="text" id="empId" placeholder="Employee ID" required>
+      <input type="text" id="empName" placeholder="Name" required>
+      <input type="text" id="empDept" placeholder="Department" required>
+      <input type="email" id="empEmail" placeholder="Email" required>
+      <input type="number" id="empSalary" placeholder="Salary" required>
+      <button type="submit">Add Employee</button>
+    </form>
+
+    <!-- Employee Table -->
+    <table id="employeeTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Department</th>
+          <th>Email</th>
+          <th>Salary</th>
+          <th>Action</th> <!-- Column for Delete button -->
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Employees will be added here dynamically -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const form = document.getElementById("employeeForm");
+    const tableBody = document.querySelector("#employeeTable tbody");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+
+      const id = document.getElementById("empId").value;
+      const name = document.getElementById("empName").value;
+      const dept = document.getElementById("empDept").value;
+      const email = document.getElementById("empEmail").value;
+      const salary = document.getElementById("empSalary").value;
+
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${id}</td>
+        <td>${name}</td>
+        <td>${dept}</td>
+        <td>${email}</td>
+        <td>${salary}</td>
+        <td><button class="deleteBtn">Delete</button></td>
+      `;
+
+      
+      tableBody.appendChild(row);
+
+      
+      row.querySelector(".deleteBtn").addEventListener("click", function() {
+        row.remove();
+      });
+
+      
+      form.reset();
+    });
+  </script>
+</body>
+</html>
